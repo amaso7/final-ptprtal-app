@@ -1,65 +1,28 @@
-import React, { useState } from 'react'
-import {  Container, Row, Col, Form, Button} from 'react-bootstrap'
-import './App.scss';
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import ApolloProvider from './ApolloProvider'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+
+import './App.scss'
+import Home from './pages/Home'
+import Register from './pages/Register'
+import Login from './pages/Login'
 
 function App() {
 
-  const [variables, setVariables ] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-
-  })
-
-  const submitRegisterForm = e => {
-    e.preventDefault()
-
-    console.log(variables)
-
-  }
   return (
-    <Container>
-      
-      <Row className="bg-white py-5 justify-content-center">
-      <Col sm={8} md={6} lg={4}>
-        
-        <h1 className='text-center '>Azure for Health LLC. Patient Portal </h1>
-        <h3 className='text-center '>Register Here!</h3>
-        <Form onSubmit={submitRegisterForm}>
-  <Form.Group>
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" value={variables.email} onChange={(e) => 
-      setVariables({...variables,email: e.target.value}) }/>
-    <Form.Text className="text-muted">
-      We'll never share your email with anyone else.
-    </Form.Text>
-  </Form.Group>
-  <Form.Group >
-    <Form.Label>Username </Form.Label>
-    <Form.Control type="text" placeholder="Enter Username" value={variables.username} onChange={(e) => 
-      setVariables({...variables,username: e.target.value}) } />
-  </Form.Group>
-  <Form.Group >
-    <Form.Label>Password </Form.Label>
-    <Form.Control type="Password" placeholder="Enter Password" value={variables.password} onChange={(e) => 
-      setVariables({...variables,password: e.target.value}) } />
-  </Form.Group>
-  <Form.Group >
-    <Form.Label>Confirm Password </Form.Label>
-    <Form.Control type="Password" placeholder="Confirm Password" value={variables.confirmPassword} onChange={(e) => 
-      setVariables({...variables,confirmPassword: e.target.value}) }/>
-  </Form.Group>
-  <div className="text-center py-2"><Button variant="success" type="submit" >
-    Register
-  </Button></div>
-  
-
-</Form>
-
-        </Col>
-      </Row>
-    </Container>
+    <ApolloProvider>
+    <BrowserRouter>
+      <Container className="pt-5">
+        <Routes>
+          <Route exact path="/" element={<Home/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
+  </ApolloProvider>
   );
 }
 
