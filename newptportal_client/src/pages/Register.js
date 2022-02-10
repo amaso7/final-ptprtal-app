@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { gql, useMutation } from '@apollo/client'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const REGISTER_USER = gql`
  mutation register(
@@ -33,9 +33,9 @@ export default function Register(props) {
   })
 
   const [errors, setErrors] = useState({})
-
+  let navigate = useNavigate();
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update: (_, __) => props.history.push('/login'),
+    update: (_, __) => navigate('/login'),
     onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
   })
 
