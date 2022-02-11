@@ -11,7 +11,7 @@ module.exports = {
       getUsers: async (_, __, { user }) => {
         
          try{
-          if (!user) throw AuthenticationError('USER NOT FOUND!')
+          if (!user) throw new AuthenticationError('USER NOT FOUND!')
           
              const users = await User.findAll({
                where: {username: { [Op.ne]: user.username}},
