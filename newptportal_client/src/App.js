@@ -1,14 +1,17 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import ApolloProvider from "./ApolloProvider";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import { BrowserRouter, Switch } from 'react-router-dom'
 
-import "./App.scss";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import ApolloProvider from './ApolloProvider'
 
-import { AuthProvider } from "./context/auth";
+import './App.scss'
+
+import Home from './pages/home/Home'
+import Register from './pages/Register'
+import Login from './pages/Login'
+
+import { AuthProvider } from './context/auth'
+import DynamicRoute from './util/DynamicRoute'
 
 function App() {
   return (
@@ -16,16 +19,16 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Container className="pt-5">
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
+            <Switch>
+              <DynamicRoute exact path="/" component={Home} authenticated />
+              <DynamicRoute path="/register" component={Register} guest />
+              <DynamicRoute path="/login" component={Login} guest />
+            </Switch>
           </Container>
         </BrowserRouter>
-        </AuthProvider>
+      </AuthProvider>
     </ApolloProvider>
-  );
+  )
 }
 
-export default App;
+export default App

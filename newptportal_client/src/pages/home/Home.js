@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client'
 
-import { useAuthDispatch } from '../context/auth'
+import { useAuthDispatch } from '../../context/auth'
 
 const GET_USERS = gql`
   query getUsers {
@@ -15,12 +15,12 @@ const GET_USERS = gql`
   }
 `
 
-export default function Home({  }) {
+export default function Home({ history }) {
   const dispatch = useAuthDispatch()
-  let navigate = useNavigate()
+
   const logout = () => {
     dispatch({ type: 'LOGOUT' })
-    navigate('/login')
+    history.push('/login')
   }
 
   const { loading, data, error } = useQuery(GET_USERS)

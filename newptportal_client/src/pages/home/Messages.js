@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { gql, useLazyQuery } from '@apollo/client'
 import { Col } from 'react-bootstrap'
 
-import { useMessageDispatch, useMessageState } from '../context/message'
+import { useMessageDispatch, useMessageState } from '../../context/message'
 
 const GET_MESSAGES = gql`
   query getMessages($from: String!) {
